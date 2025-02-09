@@ -1,0 +1,109 @@
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/rgb.h>
+
+#define DEFAULT 0
+#define LOWER   1
+#define RAISE   2
+#define EXTRA   3
+
+// &led_strip {
+//     chain-length = <27>;
+// };
+
+/ {
+    macros {
+        qk_macro_0: qk_macro_0 {
+            compatible = "zmk,behavior-macro-one-param";
+            #binding-cells = <1>;
+            bindings
+                = <&macro_press &kp LALT>
+                , <&macro_tap &kp GRAVE>
+                , <&macro_release &kp LALT>
+                , <&macro_param_1to1>
+                , <&macro_tap &kp MACRO_PLACEHOLDER>
+                ;
+        };
+        qk_macro_1: qk_macro_1 {
+            compatible = "zmk,behavior-macro-one-param";
+            #binding-cells = <1>;
+            bindings
+                = <&macro_press &kp LALT>
+                , <&macro_tap &kp E>
+                , <&macro_release &kp LALT>
+                , <&macro_param_1to1>
+                , <&macro_tap &kp MACRO_PLACEHOLDER>
+                ;
+        };
+    };
+    conditional_layers {
+        compatible = "zmk,conditional-layers";
+        tri_layer {
+            if-layers = <LOWER RAISE>;
+            then-layer = <EXTRA>;
+        };
+    };
+    // behaviors {
+    //     hm: homerow_mods {
+    //         compatible = "zmk,behavior-hold-tap";
+    //         #binding-cells = <2>;
+    //         tapping-term-ms = <150>;
+    //         quick-tap-ms = <0>;
+    //         flavor = "tap-preferred";
+    //         bindings = <&kp>, <&kp>;
+    //     };
+    // };
+    keymap {
+        compatible = "zmk,keymap";
+
+        base {
+            bindings = <
+&kp TAB    &kp Q  &kp W  &kp F     &kp P      &kp G              &kp J          &kp L    &kp U      &kp Y    &kp MINUS  &kp BSPC
+&kp LSHFT  &kp A  &kp R  &kp S     &kp T      &kp D              &kp H          &kp N    &kp E      &kp I    &kp O      &kp RSHFT
+&kp LCTRL  &kp Z  &kp X  &kp C     &kp V      &kp B              &kp K          &kp M    &kp COMMA  &kp DOT  &kp FSLH   &kp RCTRL
+                         &kp LGUI  &kp SPACE  &mo RAISE          &lt LOWER ESC  &kp RET  &kp RALT
+            >;
+        };
+
+        layer_1 {
+            bindings = <
+&trans  &kp N1         &kp N2         &kp N3         &kp N4         &kp N5               &kp N6         &kp N7          &kp N8          &kp N9        &kp N0           &trans
+&trans  &qk_macro_0 A  &qk_macro_0 E  &qk_macro_0 I  &qk_macro_0 O  &qk_macro_0 U        &kp PAGE_UP    &kp LEFT_ARROW  &kp DOWN_ARROW  &kp UP_ARROW  &kp RIGHT_ARROW  &trans
+&trans  &qk_macro_1 A  &qk_macro_1 E  &qk_macro_1 I  &qk_macro_1 O  &qk_macro_1 U        &kp PAGE_DOWN  &kp DELETE      &kp HOME        &kp END       &kp CAPSLOCK     &trans
+                                      &trans         &trans         &trans               &trans         &trans          &trans
+            >;
+        };
+
+        layer_2 {
+            bindings = <
+&trans  &kp F1   &kp F2   &kp F3  &kp F4  &kp F5                                         &trans  &trans                 &kp GRAVE  &kp EQUAL        &kp BSLH  &trans
+&trans  &kp F6   &kp F7   &kp F8  &kp F9  &kp F10                                        &trans  &kp LEFT_PARENTHESIS   &kp LBKT   &kp LEFT_BRACE   &kp SQT   &trans
+&trans  &kp F11  &kp F12  &trans  &trans  &trans                                         &trans  &kp RIGHT_PARENTHESIS  &kp RBKT   &kp RIGHT_BRACE  &kp SEMI  &trans
+                          &trans  &trans  &trans                                         &trans  &trans                 &trans
+            >;
+        };
+
+        layer_3 {
+            bindings = <
+&trans  &trans          &trans        &trans        &trans        &trans                 &kp K_PREV  &kp K_PLAY_PAUSE  &kp K_NEXT  &kp K_MUTE  &kp K_VOLUME_DOWN  &kp K_VOLUME_UP
+&trans          &bt BT_CLR      &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3           &trans      &trans            &trans      &trans      &trans             &trans
+&trans          &bt BT_CLR_ALL  &bt BT_PRV    &bt BT_NXT    &trans        &trans                 &trans      &trans            &trans      &trans      &trans             &trans
+                                      &trans        &trans        &trans                 &trans      &trans            &trans
+            >;
+        };
+
+        extra1 {
+            status = "reserved";
+        };
+
+//         layer_3 {
+//             bindings = <
+// &kp ESC    &trans          &trans        &trans        &trans        &trans                 &kp K_PREV       &kp K_PLAY_PAUSE  &kp K_NEXT       &kp K_MUTE       &kp K_VOLUME_DOWN  &kp K_VOLUME_UP
+// &kp LSHFT  &bt BT_CLR      &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3           &rgb_ug RGB_EFF  &rgb_ug RGB_BRI   &rgb_ug RGB_HUI  &rgb_ug RGB_SAI  &trans             &trans
+// &kp LCTRL  &bt BT_CLR_ALL  &bt BT_PRV    &bt BT_NXT    &trans        &trans                 &rgb_ug RGB_TOG  &rgb_ug RGB_BRD   &rgb_ug RGB_HUD  &rgb_ug RGB_SAD  &trans             &trans
+//                                          &trans        &trans        &trans                 &trans           &trans            &trans
+//             >;
+//         };
+    };
+};
