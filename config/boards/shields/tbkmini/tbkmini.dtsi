@@ -4,11 +4,17 @@
  * SPDX-License-Identifier: MIT
  */
 
+#include <dt-bindings/zmk/matrix_transform.h>
+#include "tbkmini-layout.dtsi"
 #include "tbkmini_common.dtsi"
 
 / {
+	//chosen {
+	//	zmk,matrix_transform = &default_transform;
+	//};
 	chosen {
-		zmk,matrix_transform = &default_transform;
+		zmk,kscan = &kscan0;
+		zmk,physical-layout = &tbkmini_physical_layout;
 	};
 
 	default_transform: keymap_transform_0 {

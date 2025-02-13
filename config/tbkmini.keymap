@@ -86,7 +86,7 @@
 
         layer_3 {
             bindings = <
-&trans  &trans          &trans        &trans        &trans        &trans                 &kp K_PREV  &kp K_PLAY_PAUSE  &kp K_NEXT  &kp K_MUTE  &kp K_VOLUME_DOWN  &kp K_VOLUME_UP
+&studio_unlock  &trans          &trans        &trans        &trans        &trans                 &kp K_PREV  &kp K_PLAY_PAUSE  &kp K_NEXT  &kp K_MUTE  &kp K_VOLUME_DOWN  &kp K_VOLUME_UP
 &trans          &bt BT_CLR      &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3           &trans      &trans            &trans      &trans      &trans             &trans
 &trans          &bt BT_CLR_ALL  &bt BT_PRV    &bt BT_NXT    &trans        &trans                 &trans      &trans            &trans      &trans      &trans             &trans
                                       &trans        &trans        &trans                 &trans      &trans            &trans
